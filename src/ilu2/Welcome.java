@@ -32,13 +32,12 @@ public class Welcome {
 			
 		}
 		if (input.contains(",")) {
-			String[] deuxNoms = input.split(",");
-			//deuxNoms[0] = minToMaj(deuxNoms[0]);  plus besoin de cela mais mieux vaut laisser si jamais
-			//deuxNoms[1] = minToMaj(deuxNoms[1]);
-			//hello.append(deuxNoms[0]);
-			ajouterPrenom(hello, deuxNoms[0]);
-			ajouterPrenom(hello, deuxNoms[1]);
+			String[] plusieursNoms = input.split(",");
+			for (int i = 0; i < plusieursNoms.length; i++) {
+				ajouterPrenom(hello, plusieursNoms[i]);
+			}
 			return hello.toString();
+			
 		} else {
 			ajouterPrenom(hello, minToMaj(input));
 			return hello.toString();
