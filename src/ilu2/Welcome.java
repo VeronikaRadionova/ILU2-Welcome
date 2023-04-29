@@ -17,23 +17,78 @@ public class Welcome {
 		message.append(ajout);
 	}
 	
+	private static void ajouterAvecAnd(StringBuilder message, String prenom) {
+		StringBuilder ajout = new StringBuilder(" and ");
+		prenom = minToMaj(prenom);
+		ajout.append(prenom);
+		message.append(ajout);
+	}
+	
+	private static String[] trouverMaj(String[] liste) {
+		int nbMaj = 0;
+		for (int i = 0; i < liste.length; i++) {
+			if (liste[i] == liste[i].toUpperCase()) {
+				nbMaj++;
+			}
+		}
+		int indice = 0;
+		String[] prenoms = new String[nbMaj];
+		for (int j = 0; j < liste.length; j++) {
+			if (liste[j] == liste[j].toUpperCase()) {
+				prenoms[indice] = liste[j];
+				indice++;
+			}
+		}
+		return prenoms;
+	}
+	
+	private static String[] trouverMin(String[] liste) {
+		int nbMin = 0;
+		for (int i = 0; i < liste.length; i++) {
+			if (liste[i] != liste[i].toUpperCase()) {
+				nbMin++;
+			}
+		}
+		String[] prenoms = new String[nbMin];
+		int indice = 0;
+		for (int j = 0; j < liste.length; j++) {
+			if (liste[j] != liste[j].toUpperCase()) {
+				prenoms[indice] = liste[j];
+				indice++;
+			}
+		}
+		return prenoms;
+	}
 	
 	private static String phraseMaj(String[] liste) {
 		StringBuilder message = new StringBuilder("HELLO");
-		for (int i = 0; i < liste.length; i++) {
-			if (liste[i] == liste[i].toUpperCase()) {
-				ajouterPrenom(message, liste[i]);
+		if (liste.length == 1) {
+			ajouterPrenom(message, liste[0]);
+		} else {
+			for (int i = 0; i < liste.length; i++) {
+				if (i == liste.length - 1) {
+					ajouterAvecAnd(message, liste[i]);
+				} else {
+					ajouterPrenom(message, liste[i]);
+				}
 			}
 		}
 		message.append(" !");
 		return message.toString().toUpperCase();
 	}
 	
+	
 	private static String phraseMin(String[] liste) {
 		StringBuilder message = new StringBuilder("Hello");
-		for (int i = 0; i < liste.length; i++) {
-			if (liste[i] != liste[i].toUpperCase()) {
-				ajouterPrenom(message, liste[i]);
+		if (liste.length == 1) {
+			ajouterPrenom(message, liste[0]);
+		} else {
+			for (int i = 0; i < liste.length; i++) {
+				if (i == liste.length - 1) {
+					ajouterAvecAnd(message, liste[i]);
+				} else {
+					ajouterPrenom(message, liste[i]);
+				}
 			}
 		}
 		message.append(". ");
@@ -41,7 +96,7 @@ public class Welcome {
 	}
 	
 	
-	private static boolean trouverMaj(String[] liste) {
+	private static boolean existeMaj(String[] liste) {
 		for (int i = 0; i < liste.length; i++) {
 			if (liste[i] == liste[i].toUpperCase()) return true;
 		}
@@ -71,21 +126,21 @@ public class Welcome {
 			input = input.trim();
 			String[] prenoms = input.split(",");
 			
-			if (!trouverMaj(prenoms)) {
+			if (!existeMaj(prenoms)) {
 				for (int i = 0; i < prenoms.length; i++) {
 					ajouterPrenom(hello, prenoms[i]);
 				}
 				return hello.toString();
 			} else {
-				
 				if (input == input.toUpperCase()) {
-					return phraseMaj(prenoms);
+					String[] liste = trouverMaj(prenoms);
+					return phraseMaj(liste);
 				}
 				
-				String partie1 = phraseMin(prenoms);
-				String partie2 = phraseMaj(prenoms);
-				partie2 = "AND " + partie2;
-				return partie1 + partie2;
+				String phrase1 = phraseMin(trouverMin(prenoms));
+				String phrase2 = phraseMaj(trouverMaj(prenoms));
+				phrase2 = "AND " + phrase2;
+				return phrase1 + phrase2;
 			}
 		}
 	}

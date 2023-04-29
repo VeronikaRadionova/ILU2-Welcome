@@ -45,10 +45,17 @@ class WelcomeTest {
 		assertEquals("Hello, Amy, Bob, Jerry", Welcome.welcome("Amy,bob,jerry"));
 	}
 	
-	@Test
-	void test6() {
-		assertEquals("Hello, Amy, Jerry. AND HELLO, BOB !", Welcome.welcome("Amy, BOB, Jerry"));
-		assertEquals("Hello, Jerry. AND HELLO, AMY, BOB !", Welcome.welcome("AMY, BOB, Jerry"));
-		assertEquals("HELLO, AMY, BOB !", Welcome.welcome("AMY, BOB"));
+	@Test // quand on commence à gérer le cas avec "and" et "AND", ces tests se cassent car ici on a utilisé seulement des virgules ce qui n'est pas le cas avancé
+	void test6() { 
+		//assertEquals("Hello, Amy, Jerry. AND HELLO, BOB !", Welcome.welcome("Amy, BOB, Jerry"));
+		//assertEquals("Hello, Jerry. AND HELLO, AMY, BOB !", Welcome.welcome("AMY, BOB, Jerry"));
+		//assertEquals("HELLO, AMY, BOB !", Welcome.welcome("AMY, BOB"));
+	}
+	
+	@Test 
+	void test7() {
+		assertEquals("Hello, Amy and Jerry. AND HELLO, BOB !", Welcome.welcome("Amy, BOB, Jerry"));
+		assertEquals("Hello, Jerry. AND HELLO, AMY AND BOB !", Welcome.welcome("AMY, BOB, Jerry"));
+		assertEquals("HELLO, AMY AND BOB !", Welcome.welcome("AMY, BOB"));
 	}
 }
