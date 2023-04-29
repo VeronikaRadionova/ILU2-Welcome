@@ -91,7 +91,7 @@ public class Welcome {
 				}
 			}
 		}
-		message.append(". ");
+		//message.append(". ");
 		return message.toString();
 	}
 	
@@ -127,10 +127,11 @@ public class Welcome {
 			String[] prenoms = input.split(",");
 			
 			if (!existeMaj(prenoms)) {
-				for (int i = 0; i < prenoms.length; i++) {
+				return phraseMin(trouverMin(prenoms));
+				/*for (int i = 0; i < prenoms.length; i++) {
 					ajouterPrenom(hello, prenoms[i]);
 				}
-				return hello.toString();
+				return hello.toString();*/
 			} else {
 				if (input == input.toUpperCase()) {
 					String[] liste = trouverMaj(prenoms);
@@ -139,7 +140,7 @@ public class Welcome {
 				
 				String phrase1 = phraseMin(trouverMin(prenoms));
 				String phrase2 = phraseMaj(trouverMaj(prenoms));
-				phrase2 = "AND " + phrase2;
+				phrase2 = ". AND " + phrase2;
 				return phrase1 + phrase2;
 			}
 		}
