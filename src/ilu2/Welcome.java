@@ -18,29 +18,75 @@ public class Welcome {
 	}
 	
 	
+	private static String phraseMaj(String[] liste) {
+		StringBuilder message = new StringBuilder("HELLO");
+		for (int i = 0; i < liste.length; i++) {
+			if (liste[i] == liste[i].toUpperCase()) {
+				ajouterPrenom(message, liste[i]);
+			}
+		}
+		message.append(" !");
+		return message.toString().toUpperCase();
+	}
+	
+	private static String phraseMin(String[] liste) {
+		StringBuilder message = new StringBuilder("Hello");
+		for (int i = 0; i < liste.length; i++) {
+			if (liste[i] != liste[i].toUpperCase()) {
+				ajouterPrenom(message, liste[i]);
+			}
+		}
+		message.append(". ");
+		return message.toString();
+	}
+	
+	
+	private static boolean trouverMaj(String[] liste) {
+		for (int i = 0; i < liste.length; i++) {
+			if (liste[i] == liste[i].toUpperCase()) return true;
+		}
+		return false;
+	}
+	
+	
 	
 	public static String welcome(String input) {
 		StringBuilder hello = new StringBuilder("Hello");
+		StringBuilder and = new StringBuilder("and ");
 		
 		if (input == null || input.trim() == "") {
 			hello.append(", my friend");
 			return hello.toString();
-			
-		} else if (input == input.toUpperCase()) {
-			ajouterPrenom(hello, input + " !");
-			return hello.toString().toUpperCase();
-			
-		}
-		if (input.contains(",")) {
-			String[] plusieursNoms = input.split(",");
-			for (int i = 0; i < plusieursNoms.length; i++) {
-				ajouterPrenom(hello, plusieursNoms[i]);
+		} 
+		
+		if (!input.contains(",")) {
+			if (input == input.toUpperCase()) {
+				ajouterPrenom(hello, input + " !");
+				return hello.toString().toUpperCase();
+			} else {
+				ajouterPrenom(hello, minToMaj(input));
+				return hello.toString();
 			}
-			return hello.toString();
-			
 		} else {
-			ajouterPrenom(hello, minToMaj(input));
-			return hello.toString();
+			input = input.trim();
+			String[] prenoms = input.split(",");
+			
+			if (!trouverMaj(prenoms)) {
+				for (int i = 0; i < prenoms.length; i++) {
+					ajouterPrenom(hello, prenoms[i]);
+				}
+				return hello.toString();
+			} else {
+				
+				if (input == input.toUpperCase()) {
+					return phraseMaj(prenoms);
+				}
+				
+				String partie1 = phraseMin(prenoms);
+				String partie2 = phraseMaj(prenoms);
+				partie2 = "AND " + partie2;
+				return partie1 + partie2;
+			}
 		}
 	}
 }
