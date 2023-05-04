@@ -4,8 +4,9 @@ import java.util.ArrayList;
 
 public class Welcome {
 	
-	// des fonctions supplémentaires pour aider
+	// des fonctions supplémentaires pour aider 
 	
+	/* Transformer la première lettre d'un prénom en majuscule  */
 	private static String minusculeToMajuscule(String ligne) {
 		ligne = ligne.trim();
 		char[] chars = ligne.toCharArray();
@@ -14,6 +15,7 @@ public class Welcome {
 		return ligne;
 	}
 	
+	/* Ajouter un prénom précédé par une virgule */
 	private static void ajouterPrenom(StringBuilder message, String prenom) {
 		StringBuilder ajout = new StringBuilder(", ");
 		prenom = minusculeToMajuscule(prenom);
@@ -21,13 +23,15 @@ public class Welcome {
 		message.append(ajout);
 	}
 	
+	/* Ajouter un prénom précédé par un "and" */
 	private static void ajouterPrenomAvecAnd(StringBuilder message, String prenom) {
 		StringBuilder ajout = new StringBuilder(" and ");
 		prenom = minusculeToMajuscule(prenom);
 		ajout.append(prenom);
 		message.append(ajout);
 	}
-			
+	
+	/* Deux fonctions qui cherchent dans le tableau de tous les prénoms ceux qui sont en majuscule et en minuscule respectivement */
 	private static String[] trouverMajuscules(String[] liste) {
 		String[] sansRep = supprimerRepetitions(liste);
 		int nbMaj = 0;
@@ -70,6 +74,7 @@ public class Welcome {
 		return allPrenomsMin;
 	}
 	
+	/* Deux fonctions qui construisent les phrase en majuscule et minuscule respectivement */
 	private static String phraseEnMajuscule(String[] liste) {
 		StringBuilder message = new StringBuilder("HELLO");
 		if (liste.length == 1) {
@@ -103,6 +108,7 @@ public class Welcome {
 		return message.toString();
 	}
 	
+	/* Vérifier si dans la liste de tous les prénoms ceux en majuscule existent */
 	private static boolean existeMajuscule(String[] liste) {
 		for (int i = 0; i < liste.length; i++) {
 			if (liste[i].equals(liste[i].toUpperCase())) return true;
@@ -110,6 +116,7 @@ public class Welcome {
 		return false;
 	}
 	
+	/* Supprimer toutes les répétitions des prénoms */
 	private static String[] supprimerRepetitions(String[] liste) {
 		int len = 0;
 		ArrayList <String> sansRepetitions = new ArrayList<>();
@@ -127,7 +134,8 @@ public class Welcome {
 		}
 		return pasDeRep;
 	}
-	
+
+	/* Créer un nouveau tableau des prénoms en leur ajoutant chacun son nombre de répétitions */
 	private static String[] fusionnerPrenomRep(String[] prenoms, int[] reps) {
 		String[] newNames = new String[prenoms.length];
 		System.out.println("$$$$$$");
@@ -149,7 +157,8 @@ public class Welcome {
 		}
 		return newNames;
 	}
-			
+	
+	/* Créer un tableau contenant le nombre de répétitions pour chaque prénom de la liste (sans répétition) */
 	private static int[] compterRepetitions(String[] prenoms, String[] prenomsSansRep) {
 		int[] repetitions = new int[prenomsSansRep.length];
 		for (int i = 0; i < prenomsSansRep.length; i++) repetitions[i] = 0;
@@ -162,6 +171,7 @@ public class Welcome {
 		return repetitions;
 	}
 	
+	/* Supprimer toutes les espaces inutiles */
 	public static String[] trimAll(String[] input) {
 		String[] result = new String[input.length];
 		for (int i = 0; i < input.length; i++) {
